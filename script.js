@@ -178,17 +178,37 @@
     form.reset();
   });
 
-  /* ---------- Musik (opsional, tanpa autoplay) ---------- */
+  /* ---------- Musik ---------- */
   const audio = document.getElementById("bgm");
   const audioBtn = document.getElementById("audioToggle");
+  audio.volume = typeof data.musicVolume === "number" ? data.musicVolume : 0.5; // 50%
+
+  function setPlaying(playing) {
+    audioBtn.setAttribute("aria-pressed", String(playing));
+    audioBtn.setAttribute("aria-label", playing ? "Hentikan musik" : "Putar musik");
+  }
+  function startMusic() {
+    if (!data.musicSrc) return;
+    audio.play().then(() => setPlaying(true)).catch(() => setPlaying(false));
+  }
   if (data.musicSrc) {
     audio.src = data.musicSrc;
+    audio.preload = "auto";
     audioBtn.hidden = false;
+    audio.addEventListener("error", () => { audioBtn.hidden = true; }); // file tidak ditemukan
     audioBtn.addEventListener("click", () => {
-      const playing = audioBtn.getAttribute("aria-pressed") === "true";
-      if (playing) audio.pause(); else audio.play().catch(() => {});
-      audioBtn.setAttribute("aria-pressed", String(!playing));
-      audioBtn.setAttribute("aria-label", playing ? "Putar musik" : "Hentikan musik");
+      if (audio.paused) startMusic(); else { audio.pause(); setPlaying(false); }
     });
   }
+
+  /* ---------- Opening ---------- */
+  const splash = document.getElementById("splash");
+  const enterBtn = document.getElementById("enterBtn");
+  enterBtn.focus({ preventScroll: true });
+  enterBtn.addEventListener("click", () => {
+    startMusic(); // klik = interaksi pengguna, jadi autoplay diizinkan browser
+    splash.classList.add("is-leaving");
+    document.body.classList.remove("splash-active");
+    setTimeout(() => { splash.hidden = true; toggle.focus({ preventScroll: true }); }, 1050);
+  });
 })();

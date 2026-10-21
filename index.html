@@ -10,7 +10,22 @@
   <link href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:wght@300;400;500;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="splash-active">
+  <!-- OPENING -->
+  <div class="splash" id="splash" role="dialog" aria-modal="true" aria-label="Pembuka undangan">
+    <div class="splash__inner">
+      <p class="splash__label">The Wedding Invitation</p>
+      <div class="splash__mono" aria-hidden="true">
+        <span data-field="monoLeft"></span><i></i><span data-field="monoRight"></span>
+      </div>
+      <p class="splash__names" data-field="names"></p>
+      <p class="splash__date" data-field="dateShort"></p>
+      <button class="btn btn--light splash__btn" id="enterBtn" type="button">Buka Undangan</button>
+      <p class="splash__hint" id="splashHint">Nyalakan suara untuk pengalaman terbaik</p>
+    </div>
+    <svg class="floral" data-seed="5" aria-hidden="true"></svg>
+  </div>
+
   <main class="invitation-app">
     <section class="invitation" id="invitation" aria-label="Undangan acara">
       <div class="card" id="card">

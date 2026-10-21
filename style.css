@@ -216,7 +216,46 @@ body {
   .details-panel, .message-panel { padding-bottom: 40px; }
 }
 
+/* ---------- Opening / Splash ---------- */
+.invitation-app { transition: opacity 1.2s ease, transform 1.2s var(--ease); }
+body.splash-active { overflow: hidden; height: 100vh; }
+body.splash-active .invitation-app { opacity: 0; transform: translateY(24px) scale(.98); }
+
+.splash {
+  position: fixed; inset: 0; z-index: 100;
+  display: grid; place-items: center;
+  background: radial-gradient(ellipse at 50% 35%, #8aa0a8 0%, var(--slate) 55%, #5f757d 100%);
+  color: var(--ivory); text-align: center; overflow: hidden;
+  transition: opacity 1s ease, visibility 0s linear 1s;
+}
+.splash.is-leaving { opacity: 0; visibility: hidden; pointer-events: none; }
+.splash__inner { position: relative; z-index: 2; padding: 24px 24px 120px; display: grid; justify-items: center; gap: 10px; }
+.splash > .floral { bottom: 0; left: 0; width: 100%; height: auto; z-index: 1; opacity: 0; animation: sp-fade 1.6s ease .5s forwards; }
+
+.splash__label { margin: 0; font-size: 11px; letter-spacing: .3em; text-transform: uppercase; opacity: 0; animation: sp-up .9s ease .2s forwards; }
+.splash__mono {
+  display: flex; align-items: center; gap: 22px;
+  font-family: var(--serif); font-weight: 300; line-height: 1;
+  font-size: clamp(84px, 16vw, 150px); margin: 6px 0;
+  opacity: 0; animation: sp-up 1.1s ease .5s forwards;
+}
+.splash__mono i { display: block; width: 1px; height: .75em; background: var(--gold-muted); transform-origin: top; animation: sp-line 1.2s var(--ease) .9s both; }
+.splash__names { margin: 0; font-family: var(--script); font-size: clamp(40px, 6vw, 68px); line-height: 1.1; opacity: 0; animation: sp-up 1s ease 1.2s forwards; }
+.splash__date { margin: 0 0 14px; font-family: var(--serif); letter-spacing: .14em; font-size: 22px; opacity: 0; animation: sp-up 1s ease 1.5s forwards; }
+.splash__btn { opacity: 0; animation: sp-up 1s ease 1.9s forwards; }
+.splash__hint { margin: 6px 0 0; font-size: 11px; letter-spacing: .08em; opacity: 0; animation: sp-fade-soft 1s ease 2.2s forwards; }
+
+@keyframes sp-up { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@keyframes sp-fade { to { opacity: 1; } }
+@keyframes sp-fade-soft { to { opacity: .75; } }
+@keyframes sp-line { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+
 /* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .splash *, .splash > .floral { animation-duration: .01s !important; animation-delay: 0s !important; }
+  .invitation-app { transition: opacity .3s ease; }
+  body.splash-active .invitation-app { transform: none; }
+}
 @media (prefers-reduced-motion: reduce) {
   .card, .cover, .invitation__interior { transition: opacity .3s ease; }
   .is-open .cover { opacity: 0; transform: none; }
