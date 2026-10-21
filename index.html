@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Undangan — Botanical Slate</title>
+  <meta name="description" content="Undangan digital bergaya botanical slate.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:wght@300;400;500;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="invitation-app">
+    <section class="invitation" id="invitation" aria-label="Undangan acara">
+      <div class="card" id="card">
+
+        <!-- ISI (terlihat setelah dibuka) -->
+        <div class="invitation__interior" id="interior" inert>
+          <aside class="details-panel">
+            <p class="label">The Details</p>
+            <ul class="details-list">
+              <li>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="1.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>
+                <div><span class="label label--sm">Tanggal</span><p data-field="dateLong"></p></div>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3 2"/></svg>
+                <div><span class="label label--sm">Waktu</span><p data-field="time"></p></div>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg>
+                <div><span class="label label--sm">Lokasi</span><p data-field="venue"></p><p class="muted" data-field="address"></p></div>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6.5a2 2 0 1 0-2-2M12 6.5v2.5l8 5.5a1 1 0 0 1-.6 1.8H4.6A1 1 0 0 1 4 14.5L12 9"/></svg>
+                <div><span class="label label--sm">Dress code</span><p data-field="dressCode"></p></div>
+              </li>
+            </ul>
+            <svg class="floral floral--corner" data-seed="11" data-count="small" aria-hidden="true"></svg>
+          </aside>
+
+          <article class="main-panel">
+            <div class="main-card">
+              <p class="label">You are invited</p>
+              <p class="opening" data-field="opening"></p>
+              <h1 class="names" data-field="names"></h1>
+              <p class="date-big" data-field="dateShort"></p>
+              <p class="blessing" data-field="message"></p>
+            </div>
+            <svg class="floral floral--bottom" data-seed="7" aria-hidden="true"></svg>
+          </article>
+
+          <aside class="message-panel">
+            <p class="label">Our Message</p>
+            <p class="quote" data-field="quote"></p>
+            <a class="btn btn--outline" id="locationLink" target="_blank" rel="noopener">Lihat Lokasi</a>
+
+            <form class="rsvp" id="rsvpForm" novalidate aria-label="Konfirmasi kehadiran">
+              <p class="label">Konfirmasi</p>
+              <label for="guestName">Nama tamu</label>
+              <input id="guestName" name="name" type="text" autocomplete="name" required>
+              <label for="attendance">Kehadiran</label>
+              <select id="attendance" name="attendance" required>
+                <option value="">Pilih…</option>
+                <option value="Hadir">Hadir</option>
+                <option value="Tidak hadir">Tidak hadir</option>
+              </select>
+              <label for="guestCount">Jumlah tamu (opsional)</label>
+              <input id="guestCount" name="count" type="number" min="1" max="10" inputmode="numeric">
+              <button class="btn btn--light" type="submit">Kirim Konfirmasi</button>
+              <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+            </form>
+            <svg class="floral floral--corner floral--flip" data-seed="23" data-count="small" aria-hidden="true"></svg>
+          </aside>
+        </div>
+
+        <!-- SAMPUL -->
+        <div class="cover cover--left" id="coverLeft" aria-hidden="false">
+          <div class="cover__content">
+            <span class="monogram" data-field="monoLeft"></span>
+            <span class="caption" data-field="coverLabelLeft"></span>
+          </div>
+          <svg class="floral" data-seed="5" aria-hidden="true"></svg>
+        </div>
+        <div class="cover cover--right" id="coverRight">
+          <div class="cover__content">
+            <span class="monogram" data-field="monoRight"></span>
+            <span class="caption" data-field="coverLabelRight"></span>
+          </div>
+          <svg class="floral" data-seed="5" aria-hidden="true"></svg>
+        </div>
+      </div>
+    </section>
+
+    <div class="actions">
+      <button id="toggleInvitation" class="btn btn--dark" type="button" aria-expanded="false" aria-controls="interior">Buka Undangan</button>
+    </div>
+  </main>
+
+  <button id="audioToggle" class="audio-toggle" type="button" aria-pressed="false" aria-label="Putar musik" hidden>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/></svg>
+  </button>
+  <audio id="bgm" loop preload="none"></audio>
+
+  <script src="Data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
